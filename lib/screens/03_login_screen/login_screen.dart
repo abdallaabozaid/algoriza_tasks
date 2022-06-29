@@ -4,9 +4,15 @@ import 'package:internship_tasks_06/screens/03_login_screen/widgets/background.d
 import 'package:internship_tasks_06/screens/03_login_screen/widgets/behind_card.dart';
 import 'package:internship_tasks_06/screens/03_login_screen/widgets/form_card.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool isSignIn = false;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -18,13 +24,18 @@ class LoginScreen extends StatelessWidget {
             alignment: Alignment.topCenter,
             children: [
               const LoginBackGround(),
-              const Positioned(
-                top: 395,
-                child: BehindCard(),
+              Positioned(
+                top: isSignIn ? 395 : 425,
+                child: GestureDetector(
+                  child: BehindCard(isSignIn: isSignIn),
+                  onTap: () => setState(() {
+                    isSignIn = !isSignIn;
+                  }),
+                ),
               ),
               Positioned(
-                top: 130,
-                child: FormCard(),
+                top: isSignIn ? 130 : 100,
+                child: FormCard(isSignIn: isSignIn),
               ),
             ],
           ),

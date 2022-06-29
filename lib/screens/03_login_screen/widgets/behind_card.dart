@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:internship_tasks_06/config/constants/text_const.dart';
 
 class BehindCard extends StatelessWidget {
-  const BehindCard({Key? key}) : super(key: key);
-
+  const BehindCard({
+    Key? key,
+    required this.isSignIn,
+  }) : super(key: key);
+  final bool isSignIn;
   @override
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
@@ -37,7 +41,7 @@ class BehindCard extends StatelessWidget {
 
   Widget _text(ColorScheme colorScheme) {
     return Text(
-      creatAccountText,
+      isSignIn ? creatAccountText : signInText,
       style: TextStyle(
         fontSize: 18.sp,
         color: colorScheme.secondary.withOpacity(0.6),

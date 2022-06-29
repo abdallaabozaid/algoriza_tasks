@@ -3,16 +3,30 @@ import 'dart:ui';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:internship_tasks_06/config/constants/assets_const.dart';
 import 'package:internship_tasks_06/config/constants/text_const.dart';
 import 'package:internship_tasks_06/screens/00_common_widgets/buttons/primary_button.dart';
 import 'package:internship_tasks_06/screens/00_common_widgets/buttons/secondary_button.dart';
 import 'package:internship_tasks_06/screens/03_login_screen/widgets/text_field.dart';
 
-class FormCard extends StatelessWidget {
-  FormCard({Key? key}) : super(key: key);
+class FormCard extends StatefulWidget {
+  FormCard({
+    Key? key,
+    required this.isSignIn,
+  }) : super(key: key);
+  bool isSignIn;
+
+  @override
+  State<FormCard> createState() => _FormCardState();
+}
+
+class _FormCardState extends State<FormCard> {
   late final TextEditingController _phoneNumberController =
       TextEditingController();
+  late final TextEditingController _passwordController =
+      TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
@@ -28,17 +42,9 @@ class FormCard extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.zero,
         padding: EdgeInsets.all(20.w),
-        // height: 500.h,
         width: 320.w,
         decoration: BoxDecoration(
           color: colorScheme.primary,
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: Colors.grey.withOpacity(0.3),
-          //     spreadRadius: 6,
-          //     blurRadius: 4,
-          //   )
-          // ],
           borderRadius: const BorderRadius.only(
             bottomLeft: Radius.elliptical(20, 20),
             topRight: Radius.elliptical(20, 20),
@@ -54,13 +60,26 @@ class FormCard extends StatelessWidget {
               controller: _phoneNumberController,
               keyBoardType: TextInputType.phone,
               prefix: _codePicker(),
+              labelText: phoneNumberLabelText,
+              isSecure: false,
             ),
+            if (!widget.isSignIn)
+              SizedBox(
+                height: 20.h,
+              ),
+            if (!widget.isSignIn)
+              FormTextField(
+                controller: _passwordController,
+                keyBoardType: TextInputType.visiblePassword,
+                labelText: passwordLabelText,
+                isSecure: true,
+              ),
             SizedBox(
               height: 30.h,
             ),
             PrimaryButton(
               onPressed: () {},
-              label: signInText,
+              label: widget.isSignIn ? signInText : signUpText,
             ),
             SizedBox(
               height: 50.h,
@@ -107,7 +126,7 @@ class FormCard extends StatelessWidget {
             height: 6.h,
           ),
           Text(
-            signInText,
+            widget.isSignIn ? signInText : signUpText,
             style: TextStyle(
               fontSize: 28.sp,
               color: colorScheme.secondary,
@@ -152,7 +171,9 @@ class FormCard extends StatelessWidget {
           height: 30.w,
         ),
         SizedBox(width: 10.w),
-        Text(signInWithGoogleText),
+        widget.isSignIn
+            ? Text(signInWithGoogleText)
+            : Text(signUpWithGoogleText),
       ],
     );
   }

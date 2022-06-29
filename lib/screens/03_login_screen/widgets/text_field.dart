@@ -9,10 +9,14 @@ class FormTextField extends StatelessWidget {
     Key? key,
     required this.controller,
     required this.keyBoardType,
+    required this.labelText,
+    required this.isSecure,
     this.prefix,
   }) : super(key: key);
   final TextEditingController controller;
   final TextInputType keyBoardType;
+  final String labelText;
+  final bool isSecure;
 
   final Widget? prefix;
 
@@ -22,14 +26,17 @@ class FormTextField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       keyboardType: keyBoardType,
+      obscureText: isSecure,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.all(12.w),
-        prefixIcon: SizedBox(
-          width: 120.w,
-          height: 35.w,
-          child: prefix,
-        ),
-        labelText: phoneNumberLabelText,
+        prefixIcon: prefix == null
+            ? null
+            : SizedBox(
+                width: 120.w,
+                height: 35.w,
+                child: prefix,
+              ),
+        labelText: labelText,
         labelStyle: TextStyle(
           color: AppColors.appOnPrimaryColor.withOpacity(0.5),
           fontSize: 14.sp,
