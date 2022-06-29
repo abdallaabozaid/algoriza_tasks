@@ -34,6 +34,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_screenutil: ^5.5.3+2
+  country_code_picker: ^2.0.2
 
 dev_dependencies:
   flutter_test:
@@ -60,6 +61,7 @@ flutter:
   assets:
     - assets/fonts/Righteous-Regular.ttf
     - assets/images/logo/
+    - assets/icons/
     - assets/images/on-boarding/
 
   # An image asset can refer to one or more resolution-specific "variants", see

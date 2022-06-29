@@ -43,12 +43,21 @@ class _OnBardingScreenState extends State<OnBardingScreen>
           _statusBarPadding(),
           Align(
             alignment: Alignment.centerRight,
-            child: SecondaryButton(
-              onPressed: () {
-                Navigator.pushReplacementNamed(context, loginScreen);
-              },
-              label: 'Skip',
-              width: 60,
+            child: Padding(
+              padding: EdgeInsets.only(right: 20.w),
+              child: SecondaryButton(
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, loginScreen);
+                },
+                label: Text(
+                  skipText,
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                  ),
+                ),
+                height: 35,
+                width: 60,
+              ),
             ),
           ),
           _sizer(),
@@ -60,20 +69,23 @@ class _OnBardingScreenState extends State<OnBardingScreen>
           ),
           _sizer(),
           ValueListenableBuilder<int?>(
-            builder: (context, value, child) => Column(
-              children: [
-                Align(
-                  alignment: Alignment.center,
-                  child: IndicatorBuilder(
-                    currentPage: value,
+            builder: (context, value, child) => Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.center,
+                    child: IndicatorBuilder(
+                      currentPage: value,
+                    ),
                   ),
-                ),
-                _sizer(),
-                PrimaryButton(
-                  onPressed: () => _nextPage(),
-                  label: value == 2 ? getStartedText : nextText,
-                ),
-              ],
+                  _sizer(),
+                  PrimaryButton(
+                    onPressed: () => _nextPage(),
+                    label: value == 2 ? getStartedText : nextText,
+                  ),
+                ],
+              ),
             ),
             valueListenable: _currentPage,
           ),

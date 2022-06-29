@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:internship_tasks_06/config/constants/colors_const.dart';
 
 class SecondaryButton extends StatelessWidget {
@@ -8,26 +9,22 @@ class SecondaryButton extends StatelessWidget {
     required this.onPressed,
     required this.label,
     this.width = double.infinity,
+    this.height = 55,
   }) : super(key: key);
 
   final VoidCallback onPressed;
-  final String label;
+  final Widget label;
   final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20.w),
+    return SizedBox(
       width: width.w,
-      height: 34.h,
+      height: height.h,
       child: ElevatedButton(
         onPressed: onPressed,
-        child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 12.sp,
-          ),
-        ),
+        child: label,
         style: ButtonStyle(
           elevation: MaterialStateProperty.all(0),
           backgroundColor: MaterialStateProperty.all(Colors.transparent),
